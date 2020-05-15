@@ -7,6 +7,13 @@
 \usepackage{subcaption}
 \usepackage{float}
 \usepackage{makecell}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+
+\usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes} %todo note in margin
+\newcommand{\answ}[1]{\todo[linecolor=blue,backgroundcolor=blue!25,bordercolor=blue]{#1}}
+
                      % see the JINST-author-manual
 
 
@@ -20,14 +27,14 @@
 
 % more complex case: 4 authors, 3 institutions, 2 footnotes
 \author[a,1]{O. Allegrini,\note{Corresponding author.}}
-\author[b]{J-P. Cachemiche,}
+\author[b]{J.-P. Cachemiche,}
 \author[b]{C.P.C. Caplan,}
 \author[a]{B. Carlus,}
 \author[a]{X. Chen,}
 \author[c]{S. Curtoni}
 \author[c]{D. Dauvergne,}
 \author[a]{R. Della Negra,}
-\author[c]{M.L. Gallin-Martel}
+\author[c]{M.-L. Gallin-Martel}
 \author[e]{J. H\'{e}rault}
 \author[d]{J.M. L\'{e}tang,}
 \author[b]{C. Morel,}
@@ -40,7 +47,7 @@
 \affiliation[a]{Univ. Lyon, Univ. Claude Bernard Lyon 1, CNRS/IN2P3, IP2I Lyon, F-69622, Villeurbanne, France.}
 \affiliation[b]{Aix-Marseille Univ, CNRS/IN2P3, CPPM, Marseille, France.}
 \affiliation[c]{Universit\'e Grenoble Alpes, CNRS, Grenoble INP, LPSC-IN2P3, UMR 5821, 38000 Grenoble, France.}
-\affiliation[d]{Univ Lyon, INSA-Lyon, Univ. Claude Bernard Lyon 1, UJM-Saint \'Etienne, CNRS, Inserm, CREATIS UMR 5220, U1206, F-69373, LYON, France.}
+\affiliation[d]{Univ. Lyon, INSA-Lyon, Univ. Claude Bernard Lyon 1, UJM-Saint \'Etienne, CNRS, Inserm, CREATIS UMR 5220, U1206, F-69373, LYON, France.}
 \affiliation[e]{Department of Radiation Oncology, Antoine-Lacassagne Cancer Center, Nice, France.}
 
 % e-mail addresses: only for the forresponding author
@@ -75,13 +82,15 @@
 
 \section{Introduction}
 \label{sec:intro}
-\indent The ion beam therapy has spread rapidly in the past years. The main advantage of this technique lies in the use of the sharp Bragg peak properties and in the reduced penumbra involved by the lateral scattering area of charged particles to ensure the dose conformity with the target volume. Moreover, therapies with ions heavier than protons benefit from increased biological effects enhancing the treatment effectiveness \cite{Braccini2010, Durante2016, Schardt2010, Paganetti2013, Jakel2008}. However, this therapy technique faces uncertainties concerning the Bragg peak position mainly due to X-ray imaging modalities, anatomical changes of the patient during the treatment, organ motion and approximations used for dose calculation. 
-As a consequence, the most widespread treatment planning techniques are performed with several beam incidences providing enhanced treatment robustness at the expense of higher doses in healthy tissues. Moreover, uncertainties are taken into account by additional safety margins to ensure the full irradiation of the tumor \cite{Durante2016, Knopf2013}.
 
-Quality assurance checks allow to ensure that the dose delivery is consistent with the prescription. However, beam monitoring systems which are currently implemented in clinical facilities are based on ionization chambers matrices, which are not designed to monitor the Bragg peak position. Indeed, they are dedicated to checking the fluence and the beam shape. In this context, clinically applicable methods and instruments for measuring the ion range and the dose profile \textit{in situ} during treatments with millimeter accuracy are under development. Some prototypes exploit the detection of $\gamma$ rays which are emitted during  relaxation  processes of excited nuclei produced by nuclear interactions (prompt-gammas (PG)~\cite{Krimmer2018_nima} or as a result of the annihilation of positrons emitted from $\beta$+ emitters~\cite{Parodi2015}. Other preliminary studies are focused on the ultrasound imaging to monitor the dose delivery thanks to the detection of shock waves induced by ion beams in the area of the Bragg peak \cite{Hickling2018}. Offline PET/CT range verification is currently applied to provide an indirect monitoring~\cite{Parodi2016_nima}. Unconventional PET-based systems using $\gamma\gamma$ coincidences are able to detect possible range deviations and unpredictable anatomical modifications during fractionated treatments~\cite{Crespo2005, Parodi2015}. Systems using time-of-flight (TOF) measurement are under development to ensure in-beam monitoring since the correlation between PG profile and the Bragg peak position has been demonstrated~\cite{Testa2008}. Prompt Gamma Timing detectors (PGT) exploit the correlation between proton range and transit time to reconstruct the Bragg peak position~\cite{Marcatili2020}, whereas TOF-PG cameras or PG spectroscopy reject background contamination mainly induced by neutrons  by means of TOF selection~\jml{REF}. 
+Ion beam therapy has spread rapidly in the past decades. The main advantage of this technique lies in the dose conformity with the target volume resulting from the sharp Bragg peak observed in the dose profile at the end of the ion range. Moreover therapies with ions heavier than protons benefit from increased biological effects in the tumor region, hence enhancing the treatment effectiveness \cite{Braccini2010, Durante2016, Schardt2010, Paganetti2013, Jakel2008}. However, this therapy technique faces uncertainties concerning the Bragg peak position mainly due to X-ray imaging modalities, anatomical changes of the patient during the treatment, organ motion and approximations used in dose calculation [Paganetti PMB 2012]\answ{à remplacer}. 
+As a consequence, the most widespread treatment planning techniques are performed with several beam incidences providing enhanced treatment robustness at the expense of higher doses in healthy tissues. Moreover, additional safety margins are applied around the tumor volume to ensure the full irradiation of  tumor cells \cite{Durante2016, Knopf2013}.
 
-The accelerator radio-frequency (RF) is not an ideal time reference due to the presence of the degrader in the beam axis which introduces time dispersion of bunches. Minimal variations of the cyclotron's magnetic field also slightly affect the orbital frequency of the accelerated protons. A small phase shift per turn appears between proton movement and RF and may add up to a measurable mismatch which varies in time \cite{Werner2019}. Several devices based on scintillating fibers provide particles tracking with integration \cite{Leverington2018} or particle-per-particle \cite{Horikawa2004, Achenbach2008, Braccini2012} acquisition mode and are under development for various field of application, including the proton radiography \cite{Presti2013} and the hadrontherapy \cite{PAPA2016}. Recently, the performance of a time-tracker for a prompt-gamma spectroscopy system allowing for a background TOF rejection with a sub-nanosecond time resolution has been demonstrated \cite{Martins2020}.
-In this way, the CLaRyS collaboration is working on the development of a collimated and a Compton camera coupled to a beam tagging hodoscope.
+In this context, clinically applicable methods and instruments are under development to control \textit{in situ} ion ranges and dose profiles with millimeter accuracy by means of secondary radiation detection.  At the moment offline PET/CT range verification is performed in some hadrontherapy centers to provide ion-range control after the treatments. Such systems exploit the production of $\beta$+ emitters during nuclear reactions undergone by a fraction of incident ions. These nuclear reactions also leads to the emission of prompt gammas (PG) that can be considered for ion-range verification [ref]\answ{à remplacer}. Several PG modalities are under development worldwide and a few of them make use of time-of-flight (TOF) measurement either to derive indirect information on ion-ranges (Prompt Gamma Timing, PGT [ref]\answ{à remplacer}, \cite{Marcatili2020}) or for neutron-induced background reduction [refs CLaRyS + Delft + PG spectroscopy]\answ{à remplacer}.
+
+TOF measurement requires a time reference corresponding to the arrival of incident ions or ion bunches, depending on the beam time structure. The use of the accelerator radio-frequency (RF) as time reference would have the advantage of simplicity. However the precise correlation between the RF phase and the ion/bunch arrival can be only obtained in mono-energetic beam conditions. 
+Indeed the use of degraders to change beam energies in cyclotrons introduces time dispersion of bunches. Moreover small variations of the cyclotron’s magnetic field also slightly affect the orbital frequency of the ion trajectories. Hence a small phase shift per turn can appear between ion trajectory and RF signal resulting in a measurable mismatch which varies in time \cite{Werner2019}. 
+Several devices, based on scintillating fibers, providing particles tracking with integration \cite{Leverington2018} or particle-per-particle \cite{Horikawa2004, Achenbach2008, Braccini2012} acquisition mode are under development for various fields of application, including proton radiography \cite{Presti2013} and ion-range verification during hadrontherapy \cite{PAPA2016}. Recently, the performance of a time-tracker for a prompt-gamma spectroscopy system allowing for a background TOF rejection with a sub-nanosecond time resolution has been demonstrated \cite{Martins2020}. One the scintillating fibers hodoscope currenlty developed is the one of the ClaRyS collaboration to ve coupled with a collimated and a Compton camera for PG detection.
 
 This paper reports results of performance tests at GANIL with 95~MeV/u carbon ions, performed to measure the detection efficiency as well as the variation of the scintillating fibers response as a function of the beam fluence. Then, the setting method and the results of the in-beam characterization of the beam tagging hodoscope, performed during two measurements campaigns, at Centre Antoine Lacassagne (CAL) in Nice are presented. Multiplicity, detection efficiency and time resolution were assessed.
 
