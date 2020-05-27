@@ -34,8 +34,8 @@
 \author[c]{S. Curtoni}
 \author[c]{D. Dauvergne,}
 \author[a]{R. Della Negra,}
-\author[c]{M.-L. Gallin-Martel}
-\author[e]{J. H\'{e}rault}
+\author[c]{M.-L. Gallin-Martel,}
+\author[e]{J. H\'{e}rault,}
 \author[d]{J.M. L\'{e}tang,}
 \author[b]{C. Morel,}
 \author[a]{\'{E}. Testa,}
@@ -290,10 +290,12 @@ The assessment of the multiplicity highlighted a difference between the distribu
 
 The difference between M>1 rates in X and Y planes can be explained by the presence of a noisier ASIC to handle Y fibers plane than the one processing X fibers plane. The noisiest ASIC could be more sensitive to the accuracy of the setting method which was limited to threshold variation steps of 100 a.u and gain step of 0.25 during the current injection scans. It is worth of notice that the electronic circuit between the two ASICs and the FPGA is slightly different. The replacement of this ASIC and the modification of the electronic circuit could allow a reduction of the difference of response of the ASICs.
 
+Although the time resolution of the CLaRyS hodoscope is lower than the other prototypes around the world, with a resolution over 2~ns at high intensity against less 1~ns, its performance is close to the expectation and an upgrade of the electronic components of the acquisition chain could allow to improve the time resolution. Otherwise, the detection efficiency assessed for a single plane (logical OR condition) is comparable to the other trackers. The detection efficiency with a logical AND between two planes with clinical intensities has not been currently reported in the other studies. Finally, the ability of the beam tagging hodoscope to be coupled to a beam monitoring device to provide trigger signals with 1~$\mu$s delay as been recently demonstrated \cite{Chen2019}.
+
+
 \section{Conclusion}
 
-The different in-beam tests allowed to characterize the beam tagging hodoscope in terms of radiation damages, multiplicity, detection efficiency and time resolution. A methodology of configuration of the ASIC thresholds and input channel gains has been tested and allowed to obtain a detection efficiency higher than 98\% with a logical OR and 65\% with a logical AND between X and Y fiber planes. A time resolution <1~ns for intensities under 1~MHz was obtained with the new version of the acquisition firmware.
-Modification of the ASIC chip and electronic circuit of the acquisition board, as well as the ASIC thresholds and input channel gains selection, with a more accurate scan of the ASIC response during the current injection, are areas for improvement of the beam tagging hodoscope performances under clinical intensities.
+The different in-beam tests allowed to characterize the beam tagging hodoscope in terms of radiation damages, multiplicity, detection efficiency and time resolution. A methodology of configuration of the ASIC thresholds and input channel gains has been tested and allowed to obtain a detection efficiency higher than 98\% with a logical OR and 65\% with a logical AND between X and Y fiber planes. A time resolution <1~ns for intensities under 1~MHz was obtained with the new version of the acquisition firmware. A more accurate selection of ASIC thresholds and input channel gains selection during the current injection would slightly enhance the detection efficency of the beam tagging hodoscope. However, the modification of the ASIC chip and electronic circuit of the acquisition board is the main area for improvement of the beam tagging hodoscope performances under clinical intensities.
 
 %\appendix
 %\section{Example of appendix title}
@@ -304,7 +306,7 @@ Modification of the ASIC chip and electronic circuit of the acquisition board, a
 
 
 \acknowledgments
-This work was partially performed in the framework of Labex PRIMES (ANR-11-LABX-0063) 
+This work was partially performed in the framework of Labex PRIMES (ANR-11-LABX-0063) and within the frame of the EU Horizon 2020 project RIA-ENSAR2/MediNet (654 002).  
 
 %\paragraph{Note added.} This is also a good position for notes added after the paper has been written.
 
