@@ -118,8 +118,7 @@ The beam tagging hodoscope is constituted of two perpendicular planes of fibers.
 \label{fig:hodoscope}
 \end{figure}
 
-Each PM is linked to a front-end (FE) card via a 64-channel connector. The main components of this card are two 32-channel readout ASICs \enquote{HODOPIC}, a signal-processing FPGA, a single-channel optical transceiver and a RJ45 connector \cite{Chen2019}. The ASICs provide logic signals associated to each channel and the logical OR of these signals that triggers both the storage of the channel states in an ASIC buffer as well as the reading request by the FPGA (\enquote{request} signal). A specific gain is assigned to each channel while a common threshold is applied on all channels. When a logical OR is generated 
-The duration of the logic signals corresponds to the time for which the signal amplitude is larger than the threshold. It is worth noting that it has to be larger than the time required to generate the logical OR which is about $1.5$~ns. Otherwise the channel is considered to be not hit when the state of the channels is stored in the ASIC.
+Each PM is linked to a front-end (FE) card via a 64-channel connector. The main components of this card are two 32-channel readout ASICs \enquote{HODOPIC}, a signal-processing FPGA, a single-channel optical transceiver and a RJ45 connector \cite{Chen2019}. The ASICs provide logic signals associated to each channel and the logical OR of these signals that triggers both the storage of the channel states in an ASIC buffer as well as the reading request by the FPGA (\enquote{request} signal). A specific gain is assigned to each channel while a common threshold is applied on all channels of one ASIC. When a logical OR is generated the duration of the logic signals corresponds to the time for which the signal amplitude is larger than the threshold. It is worth noting that it has to be larger than the time required to generate the logical OR which is about $1.5$~ns. Otherwise the channel is considered to be not hit when the state of the channels is not stored in the ASIC.
 
 Apart from signal processing, the FPGA has to determine the time difference between the trigger signal sent by the gamma camera and the time stamp associated to the first logic signal provided by the ASIC. This time difference is indeed required for the TOF measurement. A single time difference value is therefore provided per ASIC for which at least one channel has been hit.
 
@@ -176,7 +175,7 @@ The performance of the hodoscope is mainly assessed in terms of detection effici
 
 As mentioned in section~\ref{sec:hodo}, the data acquisition parameters of the hodoscope are the PM high-voltage and the ASIC gains and thresholds. Their settings aim at finding the best compromise between noise rejection and detection efficiency.
 
-The standard method consists in measuring the so-called S-curves obtained by means of a logic periodic signal sent to each input channel, one by one. The S-curve corresponds to the numbers of pulses detected by the FE card over a given acquisition time as a function of threshold. Actually two types of events can be distinguished according the various signals provided by the ASIC, namely the logic signals associated to each channel and the request signal (logical OR of all channels):
+The standard method consists in measuring the so-called S-curves obtained by means of a logic periodic signal sent to each input channel, one by one. The S-curve corresponds to the number of pulses detected by the FE card over a given acquisition time as a function of threshold. Actually, two types of events can be distinguished according to the various signals provided by the ASIC, namely the logic signals associated to each channel and the request signal (logical OR of all channels):
 \begin{itemize}
   \item Good events (GE): events for which at least one logic signal state is high, 
   \item Event with short pulse (ESP): undesired events for which logic signal is not long enough to have a high state when the reading of the channel states by the FPGA is requested by the ASIC (see section~\ref{sec:hodo}).
@@ -188,7 +187,7 @@ The method used to determine a set of gains and threshold is based on three main
 \begin{itemize}
 	\item A first scan of the input channels consists in determining the noisiest channel for the minimal gain (0.25), i.e.~the channel for which point A (in figure \ref{fig:S_Curve}) corresponds to the largest threshold value. Points A and B of this channel are then used as a reference STR ;
 	\item The STR of the other channels is then measured for the minimal gain (0.25). The cumulative function of the overlap of this STR with the reference STR is then computed. The maximum of this distribution is defined as the optimal threshold value ;
-	\item For channels whose STR has no overlap with the reference STR, the gain is increased step by step until an overlap shows up.
+	\item For channels whose STR does not include the optimal threshold value, the gain is increased step by step until the optimal threshold value shows up in the STR.
 \end{itemize}
 %The following beam test was dedicated to assess the correction of an artifact in the firmware impacting the time resolution (cf \ref{Time_resolution}).
 
@@ -231,7 +230,7 @@ Efficiency (\%) & 94 & 94 & 63 & 92 & 86\\
 
 The event multiplicity ($M$) is defined as the number of involved fibers per plane when a trigger is generated. Figure \ref{fig:Multiplicity} presents the distributions of multiplicity $P(M)$ of both planes for three beam intensities: 17~kHz, $\sim$1.3~MHz and $\sim$20~MHz. The mean number of protons per bunch is 6.8$\times$10$^{-4}$, 5.2$\times$10$^{-2}$ and 8.0$\times$10$^{-1}$ respectively. The Poisson distribution of the number of protons per bunch for bunches consisting of at least 1 proton is superimposed for each beam intensity since it corresponds to the expected multiplicity if we neglect the multiple proton arrivals in a single fiber. $P(M = 0)=0$ since bunches without proton do not trigger the data acquisition. 
 
-At low beams intensities (17~kHz and $\sim$1.3~MHz), we measured $P(M=1)$ values of 80\% and 70\% for X and Y planes respectively, to be compared to the expected value of 100\%. Experimental events with $M=0$ corresponds to empty events including events with short pulse (ESP) (section~\ref{sec:hodo} and \ref{sec:Settings}). Events with $M\ge2$ are probably due slight ground fluctuations in the ASICs leading to multiple hit channels (with \enquote{wrong hits}) while only one fiber has been crossed by an incident proton. 
+At low beams intensities (17~kHz and $\sim$1.3~MHz), we measured $P(M=1)$ values of 80\% and 70\% for X and Y planes respectively, to be compared to the expected value of 100\%. Experimental events with $M=0$ corresponds to empty events including events with short pulse (ESP) (section~\ref{sec:hodo} and \ref{sec:Settings}). Events with $M\ge2$ are probably due to slight ground fluctuations in the ASICs leading to multiple hit channels (with \enquote{wrong hits}) while only one fiber has been crossed by an incident proton. 
 
 At 20~MHz, the effect of ground fluctuations is amplified. Indeed, although the detection efficiency ($P(M\ge1)$ remains almost constant, the experimental distribution of multiplicity significantly deviates from the expected distributions. Further improvement of the ASIC are therefore required to be compliant with beam intensities used clinical centers.
 
@@ -275,7 +274,7 @@ Figure \ref{fig:1D_Profiles} represents the X and Y profiles obtained with two e
 \label{fig:1D_Profiles}
 \end{figure}
 
-Considering that no structure is expected in the beam shape, the structures observed in the 1D profiles are attributed to slightly different efficiencies over the X and Y planes. The order of magnitude of these differences has been assessed focusing on the fibers obviously under-responding, namely fiber 23 in X plane and fibers $(15,16)$ and 20 in Y plane. Applying a linear interpolation over these fibers, we derived an estimate of the efficiency loss due to these fibers. In overall the loss increases with the beam intensity from 0.75\% to 4\% (resp.~2.7\% to 4\%) in the X (resp.~Y) plane.  
+Considering that no structure is expected in the beam shape, the structures observed in the 1D profiles are attributed to slightly different efficiencies over the X and Y planes. The order of magnitude of these differences has been assessed focusing on the fibers obviously under-responding, namely fiber 23 in X plane and fibers $(15,16)$ and 20 in Y plane. Applying a linear interpolation over these fibers, we derived an estimate of the efficiency loss due to these fibers. In overall the loss increases with the beam intensity from 0.75\% to 4\% and 2.7\% to 4\% in the X and Y planes respectively.  
 
 \subsubsection{Detection efficiency}
 
@@ -311,7 +310,7 @@ Figure~\ref{fig:Time_coinc} shows the distributions of time difference between t
 
 \section{Discussion}
 
-The beam tagging hodoscope under devolpment intends to provide incident ion detection with an efficiency larger than 90\% with a time resolution below 2~ns FWHM. The life duration of the scintillating fibers should be typically larger that 1000 clinical irradiations and the device should be capable to cope with 100~MHz counting rates expected with beam microstructures encountered in treatment centers. 
+The beam tagging hodoscope under development intends to provide incident ion detection with an efficiency larger than 90\% with a time resolution below 2~ns FWHM. The life duration of the scintillating fibers should be typically larger than 1000 clinical irradiations and the device should be capable to cope with 100~MHz counting rates expected with beam microstructures encountered in treatment centers. 
 
 Regarding radiation hardness, the experiment performed at GANIL represents the worst case for radiation damage in hadrontherapy (carbon ions with less than 3~cm range in water). During a single irradiation experiment, less than 10\% efficiency decrease was observed with (3.6$\pm$0.7)$\times$10$^{12}$~ions$\cdot$cm$^{-2}$, which represents more than 1000 clinical irradiations for the central hodoscope area, without accounting for the longer time scale recovery. Note that efficiency measurements performed at CAL-Nice used the same hodoscope, with a beam size largely overlapping the GANIL spot impact, years later.
 
@@ -325,7 +324,7 @@ Although the time resolution of the CLaRyS hodoscope is slighlty larger than the
 
 \section{Conclusion}
 
-The performances of the CLaRyS beam tagging hodoscope have been assessed in terms of radiation damage, event multiplicity, detection efficiency and time resolution during several in-beam tests. A methodology of configuration of the ASIC thresholds and channel gains has been tested and it allowed us to obtain a detection efficiency larger than 98\% with a logical OR and 65\% with a logical AND between X and Y fiber planes as well as a time resolution lower than 2~ns FWHM for intensities under 1~MHz. In overall these performances are in accordance with the state of the art. Further improvements of the \enquote{HODOPIC} ASIC are required to reach the counting rate capability defined in the specifications (100~MHz).
+The performances of the CLaRyS beam tagging hodoscope have been assessed in terms of radiation damage, event multiplicity, detection efficiency and time resolution during several in-beam tests. A methodology of configuration of the ASIC thresholds and channel gains has been tested and it allowed us to obtain a detection efficiency larger than 98\% with a logical OR and 72\% with a logical AND between X and Y fiber planes as well as a time resolution lower than 2~ns FWHM for intensities under 1~MHz. In overall these performances are in accordance with the state of the art. Further improvements of the \enquote{HODOPIC} ASIC are required to reach the counting rate capability defined in the specifications (100~MHz).
 
 %\appendix
 %\section{Example of appendix title}
