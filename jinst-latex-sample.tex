@@ -11,9 +11,12 @@
 \usepackage[utf8]{inputenc}
 \usepackage{upgreek}
 \usepackage{csquotes}
+\usepackage{natbib}
+
 
 \usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes} %todo note in margin
 \newcommand{\answ}[1]{\todo[linecolor=blue,backgroundcolor=blue!25,bordercolor=blue]{#1}}
+\renewcommand{\harvardurl}{\textbf{URL:} \url}
 
                      % see the JINST-author-manual
 
@@ -55,7 +58,7 @@
 \emailAdd{o.allegrini@ipnl.in2p3.fr}
 
 
-\abstract{A beam tagging hodoscope prototype made of squared 1~mm$^2$ fibers arranged in two perpendicular planes and coupled to multi-anode photomultipliers has been studied using 65 MeV proton beams at various intensities. This hodoscope successfully provided 2D images of proton beams with a detection efficiency larger than 98\% with logical OR condition between the two fiber  planes. The detection efficiency with a coincidence between the two planes is close to 75\% for beam intensities up to $\sim$1~MHz. Moreover, the timing resolution is around 1.5~ns FWHM. In overall the performances show that such a technology is viable for beam monitoring during hadrontherapy. Further improvements of the ASIC developed for the front-end electronics boards are foreseen to reach the counting rate capabilities of the specifications (100~MHz).}
+\abstract{A beam tagging hodoscope prototype made of squared 1~mm$^2$ fibers arranged in two perpendicular planes and coupled to multi-anode photomultipliers has been studied using 65 MeV proton beams at various intensities. This hodoscope successfully provided 2D images of proton beams with a detection efficiency larger than 98\% with logical OR condition between the two fiber  planes. The detection efficiency with a coincidence between the two planes is close to 75\% for beam intensities up to $\sim1$~MHz. Moreover, the timing resolution is around 1.5~ns FWHM. Overall the performances show that such a technology is viable for beam monitoring during hadrontherapy. Further improvements of the ASIC developed for the front-end electronics boards are foreseen to reach the counting rate capabilities of the specifications (100~MHz).}
 
 
 
@@ -89,18 +92,18 @@
 \section{Introduction}
 \label{sec:intro}
 
-Ion beam therapy is a rapidly expanding radiotherapy modality, with more than 250,000 patients being treated worldwide\footnote{\url{https://www.ptcog.ch/index.php/patient-statistics}}. The main advantage of this technique lies in the dose conformity with the target volume resulting from the sharp Bragg peak observed in the dose profile at the end of the ion range. Moreover therapies with ions heavier than protons benefit from increased biological effect in the tumor region, hence enhancing the treatment effectiveness \cite{Braccini2010, Durante2016, Schardt2010, Paganetti2013, Jakel2008}. However, this therapy technique faces uncertainties concerning the Bragg peak position mainly due to X-ray imaging modalities, anatomical changes of the patient during the treatment, organ motion and approximations used in dose calculation \cite{Paganetti2012}. 
+Ion beam therapy is a rapidly expanding radiotherapy modality, with more than 250,000 patients being treated worldwide\footnote{\url{https://www.ptcog.ch/index.php/patient-statistics}}. The main advantage of this technique lies in the dose conformity with the target volume resulting from the sharp Bragg peak observed in the dose profile at the end of the ion range. Moreover, therapies with ions heavier than protons benefit from increased biological effect in the tumor region, hence enhancing the treatment effectiveness \cite{Braccini2010, Durante2016, Schardt2010, Paganetti2013, Jakel2008}. However, this therapy technique faces uncertainties concerning the Bragg peak position mainly due to X-ray imaging modalities, anatomical changes of the patient during the treatment, organ motion and approximations used in dose calculation \cite{Paganetti2012}. 
 As a consequence, the most widespread treatment planning techniques are performed with several beam incidences accommodating treatment robustness at the expense of higher doses in healthy tissues. Moreover, additional safety margins are applied around the tumor volume to ensure the full irradiation of  tumor cells \cite{Durante2016, Knopf2013}.
 
-In this context, clinically applicable methods and instruments are under development to monitor \textit{in vivo} ion ranges and dose profiles with millimeter accuracy by means of secondary radiation detection. 
-Some detection systems exploit the production of $\beta+$ emitters during nuclear reactions undergone by a fraction of incident ions. At present, ion-range verification is only performed after treatment in some hadrontherapy centers by means of commercial PET/CT scanners. But in-beam PET scanners are currently developed and tested in clinical conditions to provide online ion-range monitoring \cite{Shao2014, Ferrero2018}.
+In this context, clinically applicable methods and instruments are under development to monitor \textit{in vivo} ion ranges and dose profiles with millimeter accuracy using secondary radiation detection. 
+Some detection systems exploit the production of $\beta+$ emitters during nuclear reactions undergone by a fraction of incident ions. At present, ion-range verification is only performed after treatment in some hadrontherapy centers employing commercial PET/CT scanners. But in-beam PET scanners are currently developed and tested in clinical conditions to provide online ion-range monitoring \cite{Shao2014, Ferrero2018}.
 Besides the production of $\beta+$ emitters, nuclear reactions also lead to the emission of prompt gammas (PG) that can be also considered for ion-range verification \cite{Krimmer2018}. Several PG modalities are under development worldwide and a few of them make use of time-of-flight (TOF) measurement either to derive indirect information on ion-ranges (Prompt Gamma Timing, PGT \cite{Golnik2014, Marcatili2020}) or to reduce neutron-induced background in PG imaging systems (collimated and Compton cameras) \cite{Fontana2020, Dal_Bello_2020, Aldawood2017}. 
 
-TOF measurement requires a time reference corresponding to the arrival of incident ions or ion bunches, depending on the beam time structure. Beam monitoring systems, based on ionization chambers and currently implemented in clinical facilities \cite{Stelzer2002}, are not designed to provide such a time stamp. The use of the accelerator radio-frequency (RF) as time reference would have the advantage of simplicity, when there is a perfect periodicity and short ion bunches (cyclotron accelerators). However the precise correlation between the RF phase and the ion/bunch arrival can be obtained in mono-energetic beam conditions only. 
-Indeed the use of degraders to change beam energies in cyclotrons introduces time dispersion and shifts of bunches. Moreover small variations of the cyclotron’s magnetic field slightly affect the orbital frequency of the ion trajectories. Hence a small phase shift can occur at each turn between the ion trajectory and the RF signal, which results in a time-varying measurable mismatch \cite{Werner2019}. 
+TOF measurement requires a time reference corresponding to the arrival of incident ions or ion bunches, depending on the beam time structure. Beam monitoring systems, based on ionization chambers and currently implemented in clinical facilities \cite{Stelzer2002}, are not designed to provide such a timestamp. The use of the accelerator radio-frequency (RF) as time reference would have the advantage of simplicity, when there are a perfect periodicity and short ion bunches (cyclotron accelerators). However, the precise correlation between the RF phase and the ion/bunch arrival can be obtained in mono-energetic beam conditions only. 
+Indeed the use of degraders to change beam energies in cyclotrons introduces time dispersion and shifts of bunches. Moreover, small variations of the cyclotron’s magnetic field slightly affect the orbital frequency of the ion trajectories. Hence a small phase shift can occur at each turn between the ion trajectory and the RF signal, which results in a time-varying measurable mismatch \cite{Werner2019}. 
 Several devices under development based on scintillating fibers provide particles tracking with integration \cite{Leverington2018} or particle-per-particle \cite{Horikawa2004, Achenbach2008, Braccini2012} acquisition mode for various fields of application, including proton radiography \cite{Presti2016} and ion-range verification during hadrontherapy \cite{PAPA2016}. Recently, the performance of a time-tracker for a prompt-gamma spectroscopy system allowing for a background TOF rejection with a sub-nanosecond time resolution has been demonstrated \cite{Martins2020}. One of the scintillating fibers hodoscope currently developed is the one of the ClaRyS collaboration, which is dedicated to be coupled with a PG imaging system (collimated or Compton camera). The desired detection efficiency of the beam tagging hodoscope should be around 90\% for coincidence events in the X and Y planes with a time resolution below 2~ns FWHM. Furthermore, the device should be compatible with clinical conditions both in terms of beam intensities leading to counting rates up to 100~MHz and radiation hardness (device operational for at least 1000 clinical irradiations).
 
-The present paper reports on in-beam tests of the hodoscope developed by the CLaRyS collaboration. At first, performance tests were performed at GANIL with 95~MeV/u carbon ions to measure the detection efficiency as well as the variation of the scintillating fibers response as a function of the beam fluence. The second part of the paper presents the setting method of the data acquisition system (thresholds and gains) and the results of the in-beam characterization performed during two experiments at the Mediterranean Protontherapy Institute, in Nice. Multiplicity, detection efficiency and time resolution were assessed. 
+The present paper reports on in-beam tests of the hodoscope developed by the CLaRyS collaboration. At first, performance tests were performed at GANIL with 95~MeV/u carbon ions to measure the detection efficiency as well as the variation of the response of the scintillating fibers as a function of the beam fluence. The second part of the paper presents the setting method of the data acquisition system (thresholds and gains) and the results of the in-beam characterization performed during two experiments at the Mediterranean Protontherapy Institute, in Nice. Multiplicity, detection efficiency and time resolution were assessed. 
 
 \section{Material and methods}
 \subsection{The beam tagging hodoscope}
@@ -108,7 +111,7 @@ The present paper reports on in-beam tests of the hodoscope developed by the CLa
 
 The beam tagging hodoscope of the CLaRyS collaboration is designed to provide a spatiotemporal tagging of ion (or ion bunches) passages for counting rates up to 100~MHz, which corresponds to a period of 10~ns, the typical period of cyclotron beam microstructures in hadrontherapy centers. 
 
-The final version of the beam tagging hodoscope is composed  of 1~mm$^{2}$ square-section polystyrene scintillating fibers BCF-12 manufactured by Saint-Gobain. These fibers are cladded with a thin layer of acrylic, the thickness of which corresponds to 4\% of the fiber size. Their emission peak is located at 435~nm with a time decay of 3.2~ns \cite{SaintGobain2017}.
+The final version of the beam tagging hodoscope is composed  of 1~mm$^{2}$ square-section polystyrene scintillating fibers BCF-12 manufactured by Saint-Gobain. These fibers are clad with a thin layer of acrylic, the thickness of which corresponds to 4\% of the fiber size. Their emission peak is located at 435~nm with a time decay of 3.2~ns \cite{SaintGobain2017}.
 The beam tagging hodoscope is constituted of two perpendicular planes of fibers. Each plane contains 128 fibers, which gives an active area of 128$\times$128~mm$^{2}$ (Figure~\ref{fig:hodoscope}). During operation, the sensitive part is isolated against external light. Fibers are readout on both sides by 8 Hamamatsu multi-anode photomultipliers (PM) H8500C. The number of read-out channels is then 512. Connections with fibers are made in such a way that a same fiber is read-out by two neighboring channels of a PM and two adjacent fibers are handled with different PMs. This configuration allows for optimizing detector efficiency and time resolution. 
 
 \begin{figure}[htb]
@@ -118,11 +121,11 @@ The beam tagging hodoscope is constituted of two perpendicular planes of fibers.
 \label{fig:hodoscope}
 \end{figure}
 
-Each PM is linked to a front-end (FE) card via a 64-channel connector. The main components of this card are two 32-channel readout ASICs \enquote{HODOPIC}, a signal-processing FPGA, a single-channel optical transceiver and a RJ45 connector \cite{Chen2019}. The ASICs provide logic signals associated to each channel and the logical OR of these signals that triggers both the storage of the channel states in an ASIC buffer as well as the reading request by the FPGA (\enquote{request} signal). A specific gain is assigned to each channel while a common threshold is applied on all channels of one ASIC. When a logical OR is generated the duration of the logic signals corresponds to the time for which the signal amplitude is larger than the threshold. It is worth noting that it has to be larger than the time required to generate the logical OR which is about $1.5$~ns. Otherwise the channel is considered to be not hit when the state of the channels is not stored in the ASIC.
+Each PM is linked to a front-end (FE) card via a 64-channel connector. The main components of this card are two 32-channel readout ASICs \enquote{HODOPIC}, a signal-processing FPGA, a single-channel optical transceiver and an RJ45 connector \cite{Chen2019}. The ASICs provide logic signals associated to each channel and the logical OR of these signals that triggers both the storage of the channel states in an ASIC buffer as well as the reading request by the FPGA (\enquote{request} signal). A specific gain is assigned to each channel while a common threshold is applied on all channels of one ASIC. When a logical OR is generated the duration of the logic signals corresponds to the time for which the signal amplitude is larger than the threshold. It is worth noting that it has to be larger than the time required to generate the logical OR which is about $1.5$~ns. Otherwise, the channel is considered to be not hit when the state of the channels is not stored in the ASIC.
 
 Apart from signal processing, the FPGA has to determine the time difference between the trigger signal sent by the gamma camera and the time stamp associated to the first logic signal provided by the ASIC. This time difference is indeed required for the TOF measurement. A single time difference value is therefore provided per ASIC for which at least one channel has been hit.
 
-If it falls within a given time window, the data are sent from the FPGA to the back-end card (AMC40) through a 3~Gbit$\cdot$s$^{-1}$ optical fiber with a specific protocol \cite{deng2013, Chen2017, Chen2019} and then to the PC through 1~Gbit$\cdot$s$^{-1}$ ethernet link where data are processed and stored by the data acquisition software. In the case of the nominal acquisition mode the data consists of the list of hit fibers with the fiber number and the associated time difference. Both optical and ethernet links also transmit slow-control packages sent by a LabVIEW-based program. Figure~\ref{fig:Scheme_Setup_hodo} shows schematically the experimental setup in which the whole acquisition chain is illustrated with front-end (HODOPIC) and back-end (AMC40) cards, the slow control system  and the data acquisition software.
+If it falls within a given time window, the data are sent from the FPGA to the back-end card (AMC40) through a 3~Gbit$\cdot$s$^{-1}$ optical fiber with a specific protocol \cite{deng2013, Chen2017, Chen2019, Caplan2019} and then to the PC through 1~Gbit$\cdot$s$^{-1}$ ethernet link where data are processed and stored by the data acquisition software. In the case of the nominal acquisition mode, the data consists of the list of hit fibers with the fiber number and the associated time-of-arrival (TOA). Both optical and ethernet links also transmit slow-control packages sent by a LabVIEW-based program. Figure~\ref{fig:Scheme_Setup_hodo} shows schematically the experimental setup in which the whole acquisition chain is illustrated with front-end (HODOPIC) and back-end (AMC40) cards, the slow control system  and the data acquisition software.
 
 \begin{figure}[htb]
 \centering
@@ -131,11 +134,11 @@ If it falls within a given time window, the data are sent from the FPGA to the b
 \label{fig:Scheme_Setup_hodo}
 \end{figure} 
 
-In order to monitor the ageing of the fibers, another data acquisition mode has been foreseen in which the signal amplitude of a given channel is measured by means of an ADC implemented in the ASIC.
+In order to monitor the ageing of the fibers, another data acquisition mode has been foreseen in which the signal amplitude of a given channel is measured using an ADC implemented in the ASIC.
 
 For this study, a smaller hodoscope with 32 fibers per plane has also been developed in order to use a single acquisition board to collect all the data of the two planes. Each fiber plane is readout by a single ASIC.
 
-Overall, the data acquisition parameters of the hodoscope are the following: the PM high-voltage and the ASIC gains and thresholds. As detailed in section~\ref{sec:Settings}, these parameters can be optimized in order to improve the data collection and improve the signal-to-background ratio.
+Overall, the data acquisition parameters of the hodoscope are the following: the PM high-voltage and the ASIC gains and thresholds. As detailed in section~\ref{sec:Settings}, these parameters can be optimized to improve the data collection and improve the signal-to-background ratio.
 
 
 \subsection{General principle of the experimental setups}
@@ -143,7 +146,7 @@ Overall, the data acquisition parameters of the hodoscope are the following: the
 
 Figure \ref{fig:Picture_Setup_hodo} illustrates the setup used to assess the performances of the hodoscope during in-beam tests. The external trigger signal is provided by the coincidence signal generated from two plastic scintillators (PS) when a proton impinges the hodoscope. This trigger replaces the one generated by the gamma camera in the final PG detection device of the CLaRyS collaboration.
 
-The fact that these detectors are slighlty larger than the beam hodoscope does not matter since we have verified that the whole beam crosses the hodoscope (Figure~\ref{fig:2D_Maps} in the Results section). PS are aligned with the beam and located about 5~cm upstream and downstream of the hodoscope. Their signals are read out by PM which are connected to a Nuclear Instrumentation Module (NIM) where the analog signals are converted into logic signals via a preset threshold. This configuration allowed us to generate double (two PS) and triple coincidences (two PS AND the beam tagging hodoscope: either the OR or the AND of the two planes). The ratio of the number of triple and double coincidences is a direct measure of the detector efficiency. Since PS counting rate capability is around {10}$^{5}$~Hz, an additional detector is required to monitor larger beam intensities (section~\ref{In-beam_tests}).
+The fact that these detectors are slightly larger than the beam hodoscope does not matter since we have verified that the whole beam crosses the hodoscope (Figure~\ref{fig:2D_Maps} in the Results section). PS are aligned with the beam and located about 5~cm upstream and downstream of the hodoscope. Their signals are read out by PM which are connected to a Nuclear Instrumentation Module (NIM) where the analog signals are converted into logic signals via a preset threshold. This configuration allowed us to generate double (two PS) and triple coincidences (two PS AND the beam tagging hodoscope: either the OR or the AND of the two planes). The ratio of the number of triple and double coincidences is a direct measure of the detector efficiency. Since PS counting rate capability is around {10}$^{5}$~Hz, an additional detector is required to monitor larger beam intensities (section~\ref{In-beam_tests}).
 
 \begin{figure}[htb]
 \centering
@@ -157,17 +160,17 @@ The fact that these detectors are slighlty larger than the beam hodoscope does n
 
 The radiation damage assessment was performed with the small hodoscope (32 fibers per plane), connected to a single Hamamatsu multi-anode PM biased at 800~V. The setup described in the previous section was used to measure the hodoscope efficiency.  
 
-The PM readout was performed with various NIM modules to provide trigger signals (discriminator module), charge integration (QDC module) and timing (TAC module)\footnote{QDC: charge-to-digital converter : TAC: time-to-digital concerter.}. The discriminator threshold was set at 30~mV, which corresponds to about one sixth of the maximum of the amplitude distribution. The effect of radiation damage was estimated by measuring detection efficiency after a few irradiation periods with high beam intensity.
+The PM readout was performed with various NIM modules to provide trigger signals (discriminator module), charge integration (QDC module) and timing (TAC module)\footnote{QDC: charge-to-digital converter : TAC: time-to-digital converter.}. The discriminator threshold was set at 30~mV, which corresponds to about one sixth of the maximum of the amplitude distribution. The effect of radiation damage was estimated by measuring detection efficiency after a few irradiation periods with high beam intensity.
 
-\subsection{Centre Antoine Lacassage (CAL) experiments}
+\subsection{Centre Antoine Lacassagne (CAL) experiments}
 \label{In-beam_tests}
 
 In addition to the setup described in section~\ref{GeneralPrinc}, a third PS has been installed out of the beam irradiation field in order to monitor the beam intensity in high beam intensity conditions. This detector was calibrated with the in-beam PS at low beam intensity and with the intensity measured in the cyclotron stripper at high intensities. 
 
-Moreover the three single independent signals and the coincidence module output signal were sent to the LabView-based program to visualize the various counting rates and to provide online monitoring of the beam intensity. 
+Moreover, the three single independent signals and the coincidence module output signal were sent to the LabView-based program to visualize the various counting rates and to provide online monitoring of the beam intensity. 
 Finally, the time selection window applied in the FPGA of the FE card before data transmission was tuned from an additional PC through a JTAG link.
 
-The MEDICYC low energy treatment line of the CAL is intended for the treatment of ocular tumors. The research area of this beam line is located a few meters upstream of the treatment room. The maximum beam energy is 64.5~MeV and the high frequency of the accelerator is 24.85~MHz so that the beam consists of proton bunches arriving every 40.24~ns. Throughout the rest of the paper, beam intensities are expressed in Hz because the mean number of protons per bunch is always below 1 for the range of intensities used during these experiments. The counting rates recorded in the PS are approximated to Hz unit.
+The MEDICYC low energy treatment line of the CAL is intended for the treatment of ocular tumors. The research area of this beam line is located a few meters upstream of the treatment room. The maximum beam energy is 64.5~MeV and the high frequency of the accelerator is 24.85~MHz so that the beam consists of proton bunches arriving every 40.24~ns. Throughout the rest of the paper, beam intensities are expressed in Hz because the mean number of protons per bunch is always below 1 for the range of intensities used during these experiments. The counting rates recorded in the PS are approximated to units of Hz.
 The performance of the hodoscope is mainly assessed in terms of detection efficiency and spatial resolution. The number of hit fibers per trigger (multiplicity) and the detection profiles are also considered in this characterization study.
 
 \subsection{Criteria and settings}
@@ -175,7 +178,7 @@ The performance of the hodoscope is mainly assessed in terms of detection effici
 
 As mentioned in section~\ref{sec:hodo}, the data acquisition parameters of the hodoscope are the PM high-voltage and the ASIC gains and thresholds. Their settings aim at finding the best compromise between noise rejection and detection efficiency.
 
-The standard method consists in measuring the so-called S-curves obtained by means of a logic periodic signal sent to each input channel, one by one. The S-curve corresponds to the number of pulses detected by the FE card over a given acquisition time as a function of threshold. Actually, two types of events can be distinguished according to the various signals provided by the ASIC, namely the logic signals associated to each channel and the request signal (logical OR of all channels):
+The standard method consists in measuring the so-called S-curves obtained using a logic periodic signal sent to each input channel, one by one. The S-curve corresponds to the number of pulses detected by the FE card over a given acquisition time as a function of threshold. Actually, two types of events can be distinguished according to the various signals provided by the ASIC, namely the logic signals associated to each channel and the request signal (logical OR of all channels):
 \begin{itemize}
   \item Good events (GE): events for which at least one logic signal state is high, 
   \item Event with short pulse (ESP): undesired events for which logic signal is not long enough to have a high state when the reading of the channel states by the FPGA is requested by the ASIC (see section~\ref{sec:hodo}).
@@ -198,7 +201,7 @@ The method used to determine a set of gains and threshold is based on three main
 \label{fig:S_Curve}
 \end{figure}
 
-Finally the cross-talk between neighboring pixels has been assessed by scanning the PMs with a blue LED. Although slightly larger than the provider specifications, the cross-talk measured with our setup always remains below 3\% which is sufficiently low to be easily rectified by an adapted threshold setting \cite{FontanaPhD}.
+Finally, the cross-talk between neighboring pixels has been assessed by scanning the PMs with a blue LED. Although slightly larger than the provider specifications, the cross-talk measured with our setup always remains below 3\% which is sufficiently low to be easily rectified by an adapted threshold setting \cite{FontanaPhD}.
 
 \section{Results}
 \subsection{Experiment with carbon ions at GANIL}
@@ -206,7 +209,7 @@ A total detection efficiency of 94\% was obtained with a single plane, while the
 From SRIM estimation \cite{Ziegler2010}, the energy deposit in a 1~mm thick plastic fiber is 26~MeV. The results for the integrated charge per projectile, and the measured efficiency, are reported in Table~\ref{tab:GANIL}. A significant decrease of the efficiency was measured after 2.2$\times$10$^{12}$~ions$\cdot$cm$^{-2}$, but it was almost recovered by lowering the threshold. 
 Close to 90\% detection efficiency was kept after 3.6$\times$10$^{12}$ ions$\cdot$cm$^{-2}$.
 Concerning the irradiation damages, it should be noted that after few days, a partial restoration of the response at laboratory test benches has been observed, but it was not possible to repeat the detection efficiency measurement with carbon ions. 
-The time resolution was measured between one fiber output and the cyclotron high frequency signal, and assessed to 550~ps RMS. 
+The time resolution was measured between one fiber output and the cyclotron high-frequency signal and assessed to 550~ps RMS. 
 \begin{table}[htb]
 \caption{\small{\textit{Evolution of the hodoscope response as a function of 95~MeV/u carbon ion fluence. The detection efficiency is measured on a single fiber plane with a multi-anode PM H8500 and a power supply of 800~V. A threshold of 30~mV corresponds to 4.5~pC measured on QDC.}}}
 \centering
@@ -232,7 +235,7 @@ The event multiplicity ($M$) is defined as the number of involved fibers per pla
 
 At low beams intensities (17~kHz and $\sim$1.3~MHz), we measured $P(M=1)$ values of 80\% and 70\% for X and Y planes respectively, to be compared to the expected value of 100\%. Experimental events with $M=0$ correspond to empty events including events with short pulse (ESP) (section~\ref{sec:hodo} and \ref{sec:Settings}). Events with $M\ge2$ are probably due to slight ground fluctuations in the ASICs leading to multiple hit channels (with \enquote{wrong hits}) while only one fiber has been crossed by an incident proton. 
 
-At 20~MHz, the effect of ground fluctuations is amplified. Indeed, although the detection efficiency $P(M\ge1)$ remains almost constant, the experimental distribution of multiplicity significantly deviates from the expected distributions. Further improvement of the ASIC are therefore required to be compliant with beam intensities used clinical centers.
+At 20~MHz, the effect of ground fluctuations is amplified. Indeed, although the detection efficiency $P(M\ge1)$ remains almost constant, the experimental distribution of multiplicity significantly deviates from the expected distributions. Further improvements of the ASIC are therefore required to be compliant with beam intensities used in clinical centers.
 
 \begin{figure}[htb]
 \centering
@@ -257,7 +260,7 @@ The monitoring software reconstructs two-dimensional maps for each acquisition. 
 %\centering
     \begin{subfigure}{0.45\textwidth} \centering \includegraphics[width=\textwidth]{figures/2D_Map_20MHz.pdf} \caption{} \label{fig:2D_20MHz}
     \end{subfigure}
-\caption{\small{\textit{2D map reconstruted from data collection for a beam intensity of (a) $\sim$1.3 MHz and (b) $\sim$20 MHz.}}}
+\caption{\small{\textit{2D map reconstructed from data collection for a beam intensity of (a) $\sim$1.3 MHz and (b) $\sim$20 MHz.}}}
 \label{fig:2D_Maps}
 \end{figure}
 
@@ -274,7 +277,7 @@ Figure \ref{fig:1D_Profiles} represents the X and Y profiles obtained with two e
 \label{fig:1D_Profiles}
 \end{figure}
 
-Considering that no structure is expected in the beam shape, the structures observed in the 1D profiles are attributed to slightly different efficiencies over the X and Y planes. The order of magnitude of these differences has been assessed focusing on the fibers obviously under-responding, namely fiber 23 in X plane and fibers $(15,16)$ and 20 in Y plane. Applying a linear interpolation over these fibers, we derived an estimate of the efficiency loss due to these fibers. In overall the loss increases with the beam intensity from 0.75\% to 4\% and 2.7\% to 4\% in the X and Y planes respectively.  
+Considering that no structure is expected in the beam shape, the structures observed in the 1D profiles are attributed to slightly different efficiencies over the X and Y planes. The order of magnitude of these differences has been assessed focusing on the fibers obviously under-responding, namely fiber 23 in X plane and fibers $(15,16)$ and 20 in Y plane. Applying a linear interpolation over these fibers, we derived an estimate of the efficiency loss due to these fibers. Overall, the loss increases with the beam intensity from 0.75\% to 4\% and 2.7\% to 4\% in the X and Y planes respectively.  
 
 \subsubsection{Detection efficiency}
 
@@ -289,7 +292,7 @@ Figure \ref{fig:DE} represents the detection efficiency of X and Y planes separa
 
 \subsubsection{Time resolution}
 
-Figure~\ref{fig:Time_coinc} shows the distributions of time difference between the trigger signal and the first logic signal associated to each fiber planes (X and Y planes)  for beam intensities of 43~kHz (\ref{fig:Time_43kHza} and \ref{fig:Time_43kHzb}) and $\sim$10~MHz (\ref{fig:Time_10MHz}). The distributions obtained with a beam intensity of 43~kHz present well-defined peaks whose widths have been assessed by means of a Gaussian fit. The measured full widths at half maximum (FWHM) are close to 1.5~ns which fulfills the specifications. The distributions at $\sim$10~MHz reveals an additional component before the main peak that is due to ASIC oscillations. Note that the time distributions are governed not only by the time resolution of the hodoscope but also by the one of the PS detectors which has not been measured.
+Figure~\ref{fig:Time_coinc} shows the distributions of the time difference between the trigger signal and the first logic signal associated to each fiber plane (X and Y planes)  for beam intensities of 43~kHz (\ref{fig:Time_43kHza} and \ref{fig:Time_43kHzb}) and $\sim$10~MHz (\ref{fig:Time_10MHz}). The distributions obtained with a beam intensity of 43~kHz present well-defined peaks whose widths have been assessed employing a Gaussian fit. The measured full widths at half maximum (FWHM) are close to 1.5~ns which fulfills the specifications. The distributions at $\sim$10~MHz reveals an additional component before the main peak that is due to ASIC oscillations. Note that the time distributions are governed not only by the time resolution of the hodoscope but also by the one of the PS detectors, which has not been measured.
 \label{Time_resolution}
 
 \begin{figure}[htb]
@@ -314,17 +317,17 @@ The beam tagging hodoscope under development intends to provide incident ion det
 
 Regarding radiation hardness, the experiment performed at GANIL represents the worst case for radiation damage in hadrontherapy (carbon ions with less than 3~cm range in water). During a single irradiation experiment, less than 10\% efficiency decrease was observed with (3.6$\pm$0.7)$\times$10$^{12}$~ions$\cdot$cm$^{-2}$, which represents more than 1000 clinical irradiations for the central hodoscope area, without accounting for the longer time scale recovery. Note that efficiency measurements performed at CAL-Nice used the same hodoscope, with a beam size largely overlapping the GANIL spot impact, years later.
 
-In the mean time significant progresses have been made in the development of front-end electronics and data acquisition system in order to fulfill the specifications in terms of detection efficiency, time resolution and counting rate capabilities. Moreover specific configuration methods of the acquisition boards have been defined. Although the detection efficiency with coincidence between X and Y planes is $\sim$75\%, it should be noticed that more than 90\% of the incident ions are detected by at least one of the fiber planes. Moreover the timing resolution is slighlty better than the objective of 2~ns FHWM. 
+In the mean time, significant progress has been made in the development of front-end electronics and data acquisition system in order to fulfill the specifications in terms of detection efficiency, time resolution and counting rate capabilities. Moreover, specific configuration methods of the acquisition boards have been defined. Although the detection efficiency with coincidence between X and Y planes is $\sim75$\%, it should be noticed that more than 90\% of the incident ions are detected by at least one of the fiber planes. Moreover, the timing resolution is slightly better than the objective of 2~ns FHWM. 
 
-However the current limitations of the \enquote{HODOPIC} ASIC prevent us from reaching the counting rate of 100~MHz defined in the specifications. These limitations are probably due to ground oscillations in the ASICs that especially lead to fake channel hits. Such hits have been showed in the experimental distributions of multiplicities compared to the Poisson distributions of the expected number of incident protons per bunch. They have also been observed in the distributions of time difference measured with a beam intensity of $\sim$10~MHz (figure \ref{fig:Time_10MHz}).
+However, the current limitations of the \enquote{HODOPIC} ASIC prevent us from reaching the counting rate of 100~MHz defined in the specifications. These limitations are probably due to ground oscillations in the ASICs that especially lead to fake channel hits. Such hits have been shown in the experimental distributions of multiplicities compared to the Poisson distributions of the expected number of incident protons per bunch. They have also been observed in the distributions of time difference measured with a beam intensity of $\sim$10~MHz (figure \ref{fig:Time_10MHz}).
 
 
-Although the time resolution of the CLaRyS hodoscope is slighlty larger than the one of other prototypes developed worldwide, it is close to the expectations and further improvements can be foreseen with an ASIC upgrade. Moreover the detection efficiency of a single fiber plane is comparable to the one of other prototypes for which the detection efficiency with a logical AND between two planes has not been reported yet. Finally, the ability of the beam tagging hodoscope to be coupled to a beam monitoring device to provide trigger signals with 1~$\upmu$s delay as been recently demonstrated~\cite{Chen2019}.
+Although the time resolution of the CLaRyS hodoscope is slightly larger than the one of other prototypes developed worldwide, it is close to the expectations and further improvements can be foreseen with an ASIC upgrade. Moreover, the detection efficiency of a single fiber plane is comparable to the one of other prototypes for which the detection efficiency with a logical AND between two planes has not been reported yet. Finally, the ability of the beam tagging hodoscope to be coupled to a beam monitoring device to provide trigger signals with 1~$\upmu$s delay as been recently demonstrated~\cite{Chen2019}.
 
 
 \section{Conclusion}
 
-The performances of the CLaRyS beam tagging hodoscope have been assessed in terms of radiation damage, event multiplicity, detection efficiency and time resolution during several in-beam tests. A methodology of configuration of the ASIC thresholds and channel gains has been tested and it allowed us to obtain a detection efficiency larger than 98\% with a logical OR and 72\% with a logical AND between X and Y fiber planes as well as a time resolution lower than 2~ns FWHM for intensities under 1~MHz. In overall these performances are in accordance with the state of the art. Further improvements of the \enquote{HODOPIC} ASIC are required to reach the counting rate capability defined in the specifications (100~MHz).
+The performances of the CLaRyS beam tagging hodoscope have been assessed in terms of radiation damage, event multiplicity, detection efficiency and time resolution during several in-beam tests. A methodology for the configuration of the ASIC thresholds and channel gains has been tested and it allowed us to obtain a detection efficiency larger than 98\% with a logical OR and 72\% with a logical AND between X and Y fiber planes as well as a time resolution lower than 2~ns FWHM for intensities under 1~MHz. In conclusion, these performances are in accordance with the state of the art. Further improvements of the \enquote{HODOPIC} ASIC are required to reach the counting rate capability defined in the specifications (100~MHz).
 
 %\appendix
 %\section{Example of appendix title}
@@ -342,7 +345,7 @@ This work was partially performed in the framework of Labex PRIMES (ANR-11-LABX-
 
 
 \bibliography{hodoscope_biblio}
-\bibliographystyle{ieeetr}
+\bibliographystyle{unsrtnat}
 
 % We suggest to always provide author, title and journal data:
 % in short all the informations that clearly identify a document.
