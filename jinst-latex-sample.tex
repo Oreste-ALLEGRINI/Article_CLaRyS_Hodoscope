@@ -14,9 +14,9 @@
 \usepackage{natbib}
 
 
-\usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes} %todo note in margin
-\newcommand{\answ}[1]{\todo[linecolor=blue,backgroundcolor=blue!25,bordercolor=blue]{#1}}
-\renewcommand{\harvardurl}{\textbf{URL:} \url}
+%\usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes} %todo note in margin
+%\newcommand{\answ}[1]{\todo[linecolor=blue,backgroundcolor=blue!25,bordercolor=blue]{#1}}
+%\renewcommand{\harvardurl}{\textbf{URL:} \url}
 
                      % see the JINST-author-manual
 
@@ -79,11 +79,11 @@
   %where}
 
 \usepackage{xcolor}
-\colorlet{jmlcolor}{green!70!black}
-\newcommand\jml[1]{\color{jmlcolor}JML: - #1 - \color{black}}
+%\colorlet{jmlcolor}{green!70!black}
+%\newcommand\jml[1]{\color{jmlcolor}JML: - #1 - \color{black}}
 
-\colorlet{etcolor}{green!70!black}
-\newcommand\et[1]{\color{etcolor}ET: - #1 - \color{black}}
+%\colorlet{etcolor}{green!70!black}
+%\newcommand\et[1]{\color{etcolor}ET: - #1 - \color{black}}
 
 \begin{document}
 \maketitle
@@ -121,11 +121,11 @@ The beam tagging hodoscope is constituted of two perpendicular planes of fibers.
 \label{fig:hodoscope}
 \end{figure}
 
-Each PM is linked to a front-end (FE) card via a 64-channel connector. The main components of this card are two 32-channel readout ASICs \enquote{HODOPIC}, a signal-processing FPGA, a single-channel optical transceiver and an RJ45 connector \cite{Chen2019}. The ASICs provide logic signals associated to each channel and the logical OR of these signals that triggers both the storage of the channel states in an ASIC buffer as well as the reading request by the FPGA (\enquote{request} signal). A specific gain is assigned to each channel while a common threshold is applied on all channels of one ASIC. When a logical OR is generated the duration of the logic signals corresponds to the time for which the signal amplitude is larger than the threshold. It is worth noting that it has to be larger than the time required to generate the logical OR which is about $1.5$~ns. Otherwise, the channel is considered to be not hit when the state of the channels is not stored in the ASIC.
+Each PM is linked to a front-end (FE) card via a 64-channel connector. The main components of this card are two 32-channel readout ASICs \enquote{HODOPIC}, a signal-processing FPGA, a single-channel optical transceiver and an RJ45 connector \cite{Chen2019}. The ASICs provide logic signals associated to each channel and the logical OR of these signals that triggers both the storage of the channel states in an ASIC buffer as well as the reading request by the FPGA (\enquote{request} signal). A specific gain is assigned to each channel while a common threshold is applied on all channels of one ASIC. When a logical OR is generated, the duration of the logic signals corresponds to the time for which the signal amplitude is larger than the threshold. It is worth noting that it has to be larger than the time required to generate the logical OR which is about $1.5$~ns. Otherwise, when the state of the channels is not stored in the ASIC, the channels are considered to be not hit .
 
 Apart from signal processing, the FPGA has to determine the time difference between the trigger signal sent by the gamma camera and the time stamp associated to the first logic signal provided by the ASIC. This time difference is indeed required for the TOF measurement. A single time difference value is therefore provided per ASIC for which at least one channel has been hit.
 
-If it falls within a given time window, the data are sent from the FPGA to the back-end card (AMC40) \cite{Cachemiche2010} through a 3~Gbit$\cdot$s$^{-1}$ optical fiber with a specific protocol \cite{deng2013, Chen2017, Chen2019, Caplan2019} and then to the PC through 1~Gbit$\cdot$s$^{-1}$ ethernet link where data are processed and stored by the data acquisition software. In the case of the nominal acquisition mode, the data consists of the list of hit fibers with the fiber number and the associated time-of-arrival (TOA). Both optical and ethernet links also transmit slow-control packages sent by a LabVIEW-based program. Figure~\ref{fig:Scheme_Setup_hodo} shows schematically the experimental setup in which the whole acquisition chain is illustrated with front-end (HODOPIC) and back-end (AMC40) cards, the slow control system  and the data acquisition software.
+If it falls within a given time window, the data are sent from the FPGA to the back-end card (AMC40) \cite{Cachemiche2010} through a 3~Gbit$\cdot$s$^{-1}$ optical fiber with a specific protocol \cite{deng2013, Chen2017, Chen2019, Caplan2019} and then to the Personal Computer (PC) through 1~Gbit$\cdot$s$^{-1}$ ethernet link where data are processed and stored by the data acquisition software. In the case of the nominal acquisition mode, the data consists of the list of hit fibers with the fiber number and the associated time-of-arrival (TOA). Both optical and ethernet links also transmit slow-control packages sent by a LabVIEW-based program. Figure~\ref{fig:Scheme_Setup_hodo} shows schematically the experimental setup in which the whole acquisition chain is illustrated with front-end (HODOPIC) and back-end (AMC40) cards, the slow control system  and the data acquisition software.
 
 \begin{figure}[htb]
 \centering
@@ -146,7 +146,7 @@ Overall, the data acquisition parameters of the hodoscope are the following: the
 
 Figure \ref{fig:Picture_Setup_hodo} illustrates the setup used to assess the performances of the hodoscope during in-beam tests. The external trigger signal is provided by the coincidence signal generated from two plastic scintillators (PSs) when a proton impinges the hodoscope. This trigger replaces the one generated by the gamma camera in the final PG detection device of the CLaRyS collaboration.
 
-The fact that these detectors are slightly larger than the beam hodoscope does not matter since we have verified that the whole beam crosses the hodoscope (Figure~\ref{fig:2D_Maps} in the Results section). PSs are aligned with the beam and located about 5~cm upstream and downstream of the hodoscope. Their signals are read out by PMT which are connected to a Nuclear Instrumentation Module (NIM) where the analog signals are converted into logic signals via a preset threshold. This configuration allowed us to generate double (two PSs) and triple coincidences (two PSs AND the beam tagging hodoscope: either the OR or the AND of the two planes). The ratio of the number of triple and double coincidences is a direct measurement of the detector efficiency. Since the PSs counting rate capability is around {10}$^{5}$~Hz, an additional detector is required to monitor larger beam intensities (section~\ref{In-beam_tests}).
+The fact that these detectors are slightly larger than the beam hodoscope does not matter since we have verified that the whole beam crosses the hodoscope (Figure~\ref{fig:2D_Maps} in the section \ref{Results}). PSs are aligned with the beam and located about 5~cm upstream and downstream of the hodoscope. Their signals are read out by PMT which are connected to a Nuclear Instrumentation Module (NIM) where the analog signals are converted into logic signals via a preset threshold. This configuration allowed us to generate double (two PSs) and triple coincidences (two PSs AND the beam tagging hodoscope: either the OR or the AND of the two planes). The ratio of the number of triple and double coincidences is a direct measurement of the detector efficiency. Since the PSs counting rate capability is around {10}$^{5}$~Hz, an additional detector is required to monitor larger beam intensities (section~\ref{In-beam_tests}).
 
 \begin{figure}[htb]
 \centering
@@ -160,7 +160,7 @@ The fact that these detectors are slightly larger than the beam hodoscope does n
 
 The radiation damage assessment was performed with the small hodoscope (32 fibers per plane), connected to a single Hamamatsu multi-anode PMT biased at 800~V. The setup described in the previous section was used to measure the hodoscope efficiency.  
 
-The PMT readout was performed with various NIM modules to provide trigger signals (discriminator module), charge integration (QDC module) and timing (TAC module)\footnote{QDC: charge-to-digital converter : TAC: time-to-digital converter.}. The discriminator threshold was set at 30~mV, which corresponds to about one sixth of the maximum of the amplitude distribution. The effect of radiation damage was estimated by measuring detection efficiency after a few irradiation periods with high beam intensity.
+The PMT readout was performed with various NIM modules to provide trigger signals (discriminator module), charge integration (QDC module) and timing (TAC module)\footnote{QDC: charge-to-digital converter : TAC: time-to-amplitude converter.}. The discriminator threshold was set at 30~mV, which corresponds to about one sixth of the maximum of the amplitude distribution. The effect of radiation damage was estimated by measuring detection efficiency after a few irradiation periods with high beam intensity.
 
 \subsection{Centre Antoine Lacassagne (CAL) experiments}
 \label{In-beam_tests}
@@ -168,7 +168,7 @@ The PMT readout was performed with various NIM modules to provide trigger signal
 In addition to the setup described in section~\ref{GeneralPrinc}, a third PS has been installed out of the beam irradiation field in order to monitor the beam intensity in high beam intensity conditions. This detector was calibrated with the in-beam PS at low beam intensity and with the intensity measured in the cyclotron stripper at high intensities. 
 
 Moreover, the three single independent signals and the coincidence module output signal were sent to the LabVIEW-based program to visualize the various counting rates and to provide online monitoring of the beam intensity. 
-Finally, the time selection window applied in the FPGA of the FE card before data transmission was tuned from an additional PC through a JTAG\footnote{JTAG: Joint Test Action Group.} link.
+Finally, the time selection window applied in the FPGA of the FE card, before data transmission, was tuned from an additional PC through a JTAG\footnote{JTAG: Joint Test Action Group.} link.
 
 The MEDICYC low energy treatment line of the CAL is intended for the treatment of ocular tumors. The research area of this beam line is located a few meters upstream of the treatment room. The maximum beam energy is 64.5~MeV and the high frequency of the accelerator is 24.85~MHz so that the beam consists of proton bunches arriving every 40.24~ns. Throughout the rest of the paper, beam intensities are expressed in Hz because the mean number of protons per bunch is always below 1 for the range of intensities used during these experiments. The counting rates recorded in the PSs are approximated to units of Hz.
 The performance of the hodoscope is mainly assessed in terms of detection efficiency and spatial resolution. The number of hit fibers per trigger (multiplicity) and the detection profiles are also considered in this characterization study.
@@ -180,17 +180,17 @@ As mentioned in section~\ref{sec:hodo}, the data acquisition parameters of the h
 
 The standard method consists in measuring the so-called S-curves obtained using a logic periodic signal sent to each input channel, one by one. The S-curve corresponds to the number of pulses detected by the FE card over a given acquisition time as a function of threshold. Actually, two types of events can be distinguished according to the various signals provided by the ASIC, namely the logic signals associated to each channel and the request signal (logical OR of all channels):
 \begin{itemize}
-  \item Good events (GEs): events for which at least one logic signal state is high, 
-  \item Events with short pulse (ESPs): undesired events for which the logic signal is not long enough to have a high state when the reading of the channel states by the FPGA is requested by the ASIC (see section~\ref{sec:hodo}).
+  \item good events (GEs): events for which at least one logic signal state is high, 
+  \item events with short pulse (ESPs): undesired events for which the logic signal is not long enough to have a high state when the reading of the channel states by the FPGA is requested by the ASIC (see section~\ref{sec:hodo}).
 \end{itemize}
 
 Figure~\ref{fig:S_Curve} presents the S-curves measured for a gain of 1.50. As expected the GE curve presents a plateau (the expected number of pulses during the acquisition time) up to the sharp fall-off for threshold values close to the signal amplitude (point B). In this fall-off region, the larger the threshold the smaller the probability to have long enough logic signals to be readout by the FPGA. This is the reason why the ESP curve presents a maximum at the bottom of the GE curve fall-off. Finally the peak observed in the ESP curve for very low threshold values (below point A) is due to the electronic noise. The interval defined by points A and B corresponds to the suitable threshold range (STR) for a given channel gain.
 
 The method used to determine a set of gains and threshold is based on three main steps:
 \begin{itemize}
-	\item A first scan of the input channels consists in determining the noisiest channel for the minimal gain (0.25), i.e.~the channel for which point A (in figure \ref{fig:S_Curve}) corresponds to the largest threshold value. Points A and B of this channel are then used as a reference STR ;
-	\item The STR of the other channels is then measured for the minimal gain (0.25). The cumulative function of the overlap of this STR with the reference STR is then computed. The maximum of this distribution is defined as the optimal threshold value ;
-	\item For channels whose STR does not include the optimal threshold value, the gain is increased step by step until the optimal threshold value shows up in the STR.
+	\item a first scan of the input channels consists in determining the noisiest channel for the minimal gain (0.25), i.e.~the channel for which point A (in figure \ref{fig:S_Curve}) corresponds to the largest threshold value. Points A and B of this channel are then used as a reference STR;
+	\item the STR of the other channels is then measured for the minimal gain (0.25). The cumulative function of the overlap of this STR with the reference STR is then computed. The maximum of this distribution is defined as the optimal threshold value;
+	\item for channels whose STR does not include the optimal threshold value, the gain is increased step by step until the optimal threshold value shows up in the STR.
 \end{itemize}
 %The following beam test was dedicated to assess the correction of an artifact in the firmware impacting the time resolution (cf \ref{Time_resolution}).
 
@@ -204,6 +204,7 @@ The method used to determine a set of gains and threshold is based on three main
 Finally, the cross-talk between neighboring pixels has been assessed by scanning the PMs with a blue LED. Although slightly larger than the provider specifications, the cross-talk measured with our setup always remains below 3\%, which is sufficiently low to be easily rectified by an adapted threshold setting \cite{FontanaPhD}.
 
 \section{Results}
+\label{Results}
 \subsection{Experiment with carbon ions at GANIL}
 A total detection efficiency of 94\% was obtained with a single plane, while the fraction of events with multiplicity $M>1$ represented 24\%, mainly due to cross talk between adjacent channels of the multi-anode PMT.
 From SRIM estimation \cite{Ziegler2010}, the energy deposit in a 1~mm thick plastic fiber is 26~MeV. The results for the integrated charge per projectile, and the measured efficiency, are reported in Table~\ref{tab:GANIL}. A significant decrease of the efficiency was measured after 2.2$\times$10$^{12}$~ions$\cdot$cm$^{-2}$, but it was almost recovered by lowering the threshold. 
@@ -231,7 +232,7 @@ Efficiency (\%) & 94 & 94 & 63 & 92 & 86\\
 \subsubsection{Profiles and multiplicities}
 \label{Profiles_And_Multiplies}
 
-The event multiplicity ($M$) is defined as the number of involved fibers per plane when a trigger is generated. Figure \ref{fig:Multiplicity} presents the distributions of multiplicity $P(M)$ of both planes for three beam intensities: 17~kHz, $\sim$1.3~MHz and $\sim$20~MHz. The mean number of protons per bunch is 6.8$\times$10$^{-4}$, 5.2$\times$10$^{-2}$ and 8.0$\times$10$^{-1}$ respectively. The Poisson distribution of the number of protons per bunch for bunches consisting of at least 1 proton is superimposed for each beam intensity since it corresponds to the expected multiplicity if we neglect the multiple proton arrivals in a single fiber. $P(M = 0)=0$ since bunches without proton do not trigger the data acquisition. 
+The event multiplicity ($M$) is defined as the number of involved fibers per plane when a trigger is generated. Figure \ref{fig:Multiplicity} presents the distributions of multiplicity $P(M)$ of both planes for three beam intensities: 17~kHz, $\sim$1.3~MHz and $\sim$20~MHz. The mean number of protons per bunch is 6.8$\times$10$^{-4}$, 5.2$\times$10$^{-2}$ and 8.0$\times$10$^{-1}$ respectively. The Poisson distribution of the number of protons per bunch for bunches consisting of at least 1 proton is superimposed for each beam intensity since it corresponds to the expected multiplicity if we neglect the multiple proton arrivals in a single fiber. $P(M=0)=0$ since bunches without proton do not trigger the data acquisition. 
 
 At low beams intensities (17~kHz and $\sim$1.3~MHz), we measured $P(M=1)$ values of 80\% and 70\% for X and Y planes respectively, to be compared to the expected value of 100\%. Experimental events with $M=0$ correspond to empty events including events with short pulse (ESP) (section~\ref{sec:hodo} and \ref{sec:Settings}). Events with $M\ge2$ are probably due to slight ground fluctuations in the ASICs leading to multiple hit channels (with \enquote{wrong hits}) while only one fiber has been crossed by an incident proton. 
 
